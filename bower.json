@@ -1,0 +1,15 @@
+{
+  "name": "Yourcast",
+  "version": "0.1.0",
+  "description": "Weather us for Better us",
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.11.x"
+  },
+  "dependencies": {
+    "backbone": "^1.2.1",
+    "underscore": "^1.8.3",
+    "marionette": "~2.4.2",
+    "normalize.css": "~3.0.3",
+  }
+}

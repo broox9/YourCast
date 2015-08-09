@@ -1,0 +1,14 @@
+{
+  "name": "Yourcast",
+  "version": "0.1.0",
+  "description": "Weather us for Better us",
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.11.x"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "bower": "^1.4.1"
+  }
+}

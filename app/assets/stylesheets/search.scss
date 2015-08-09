@@ -1,0 +1,73 @@
+// Place all the styles related to the search controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#search-bar-region {
+  width:100%;
+  background-color: #eee;
+}
+
+.search-bar-container {
+  //max-width: 1200px;
+  width: auto;
+  padding: 0;
+  margin: 0 auto;
+}
+
+
+#search-bar-date {
+  display: inline-block;
+  padding: 1em;
+  margin: 0 1em;
+}
+
+#search-bar-button {
+  display: none;
+  padding: 1em;
+  margin: 0 1em;
+}
+
+
+#search-bar-field {
+  display:inline-block;
+
+  padding: 1em;
+  margin: 0 1em;
+
+  & form {display: inline}
+
+  & .city-search-wrap {
+    display: inline-block;
+    position: relative;
+    width: 24em;
+  }
+
+  & input {
+    width: 100%;
+    border-radius: 1em;
+    padding: 0.25em 1em;
+    border: none;
+    outline: none;
+  }
+}
+
+
+#city-search-results {
+  background-color: #ccc;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  //transform: translateX(-50%);
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0 1em;
+  border-radius: 1em;
+
+  & > .city-search-item {
+    font: 0.875em #676767 sans-serif;
+    margin: 0;
+    padding: 0.5em 1em;
+  }
+}
