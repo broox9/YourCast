@@ -64,10 +64,22 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     tagName: 'li',
     className: 'city-search-item',
 
+    initialize: function () {
+      console.log('childView')
+    },
+
+    events: {
+      'click' : 'handleItemSelect'
+    },
+
     template: function (model) {
       return _.template('<span><%= name %></span>')(model);
+    },
+
+    handleItemSelect: function (e) {
+      App.vent.trigger("city:selected", this.model)
     }
-  })
+  });
 
 
   // CompositeView for the search bar and results (and a button for now)
@@ -84,7 +96,8 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
 
     initialize: function (opts) {
       this.xhr;
-      console.log("searchbox", this)
+      console.log("searchbox", this);
+
     },
 
     templateHelpers: function() {
@@ -93,6 +106,10 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
 
     template: function (data) {
       return JST['weatherapp/searchbar/templates/searchbox_template'](data);
+    },
+
+    handleResults: function (data, status, xhr) {
+      SearchList.reset(data.RESULTS);
     },
 
     handleInput: function (e) {
@@ -105,9 +122,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
         return;
       }
 
-
-
-      var url = 'http://autocomplete.wunderground.com/aq';
+      var url = 'https://autocomplete.wunderground.com/aq';
       //TODO: Throttle this back
       this.xhr = $.ajax({
         url: url,
@@ -121,11 +136,6 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
       //run 'handleResults bound to the View Object, since it's aliased by the 'done'
       //method since it's call site isn't what it appears to be
       $.when(this.xhr).done(this.handleResults.bind(this))
-    },
-
-    handleResults: function (data, status, xhr) {
-      console.log("xhr done", status)
-      SearchList.reset(data.RESULTS);
     }
   });
 
