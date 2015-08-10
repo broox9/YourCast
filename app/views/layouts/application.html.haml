@@ -7,10 +7,22 @@
     %meta(name="apple-mobile-web-app-title" content="YourCast")
     %meta(name="viewport" content="width=device-width, initial-scale=1.0")
 
-
-    = stylesheet_link_tag    'application', media: 'all' #'data-turbolinks-track' => true
+    = stylesheet_link_tag  'application', media: 'all' #'data-turbolinks-track' => true
     = javascript_include_tag 'application' # 'data-turbolinks-track' => true
     = csrf_meta_tags
+
+    :erb
+      <script type="text/javascript" async>
+        $.getJSON('/search/defaults').done(function (data) {
+          console.log("Defaults", data)
+          DefaultWeather = data
+        });
+      </script>
+
+    :javascript
+      $(function () {
+        WeatherApp.start();
+      });
 
   %body
     = render 'shared/header'

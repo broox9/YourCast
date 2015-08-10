@@ -26,8 +26,3 @@
 //= require_directory ./weatherapp/entities
 //= require_directory ./weatherapp/searchbar
 //= require_tree .
-
-
-$(function () {
-  window.app = WeatherApp.start();
-})

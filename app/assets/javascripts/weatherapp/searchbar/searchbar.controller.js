@@ -1,4 +1,6 @@
 WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $, _) {
+  'use-strict';
+
   this.startWithParent = true;
 
   /* = Initialize ----------------------------------------------------------- */
@@ -7,7 +9,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
   });
 
 
-  /* = Controller ---------------------------------------------------------------- */
+  /* = Controller ----------------------------------------------------------- */
   var SearchList = new App.collections.Locations();
 
   var Controller = {
@@ -26,8 +28,13 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
 
       layout.searchBarDate.show(dateView)
       layout.searchBarField.show(searchView);
+    },
+
+    broadcastSelectedCity: function (model) {
+      console.log("selected Model", model)
+      App.vent.trigger('city:selected', model)
     }
-  }
+  };
 
 
 
@@ -48,7 +55,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
   });
 
 
-  // for for the date Alone
+  /* = Views: DateView ------------------------------------------------------- */
   var DateView = Marionette.ItemView.extend({
     className: 'search-bar-date',
     tagName: 'span',
@@ -59,7 +66,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
   });
 
 
-  //ChildView for a City search result used in the CompositeView below
+  /* = Views: Search Result Item --------------------------------------------- */
   var SearchItem = Marionette.ItemView.extend({
     tagName: 'li',
     className: 'city-search-item',
@@ -77,12 +84,12 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     },
 
     handleItemSelect: function (e) {
-      App.vent.trigger("city:selected", this.model)
+      Controller.broadcastSelectedCity(this.model)
     }
   });
 
 
-  // CompositeView for the search bar and results (and a button for now)
+  /* = Views: Search Box Composite View ------------------------------------- */
   var SearchBoxView = Marionette.CompositeView.extend({
     className: 'search-box-container',
     tagName: 'form',
@@ -109,7 +116,8 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     },
 
     handleResults: function (data, status, xhr) {
-      SearchList.reset(data.RESULTS);
+      var cities = (!data.RESULTS.length) ? [] : data.RESULTS.filter(function (city) {return city.type = "city";})
+      SearchList.reset(cities);
     },
 
     handleInput: function (e) {
