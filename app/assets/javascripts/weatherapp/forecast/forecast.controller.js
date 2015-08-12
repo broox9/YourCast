@@ -1,38 +1,52 @@
 WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, _) {
   this.startWithParent = false;
 
-  /* = Start ---------------------------------------------------------------- */
-  this.on('start', function (data) {
-    Controller.init(data);
-  })
+  function name_formatter (name) {
+    var formatted_name = name.replace(/\s/g, "_");
+    return formatted_name;
+  }
 
   App.vent.on('city:selected', function (model) {
-    console.log("Selected", model.attributes)
-    var name = model.get('name');
-    var country = model.get('c');
-    var lat = model.get('lat')
-    var lon = model.get('lon')
-    Controller.showForecast(name, country,lat, lon)
-  })
+    var cityKey = API.processCityModel(model);
+    Forecast.router.navigate("forecast/" + cityKey);
+    API.showForecast(cityKey);
+  });
 
 
   /* = Controller ----------------------------------------------------------- */
   //var defaultForecast= {};
 
-  var Controller = {
+  var API = {
     init: function (data) {
-      console.log("Forecast Data", data[0]);
+      this.defaultData = data;
 
       var mainview = new ForecastMainView({data: data})
       var view = new ForecastSlice();
       App.mainContentRegion.show(mainview);
     },
 
-    showForecast: function (name, country, lat,lon) {
+    reset: function () {
+      this.init(this.defaultData);
+    },
+
+    processCityModel: function (model) {
+      var name = model.get('name');
       var location = name.split(', ');
       var city = location[0];
       var region = location[1];
-      var forecast = this.getForecast(region, city, lat, lon);
+      var urlFragment = name_formatter(region) + "/" + name_formatter(city);
+
+      //TODO: regulate this cache so it does get out of hand
+      App.state.locationsCache[urlFragment] = model
+      return urlFragment;
+    },
+
+    showForecast: function (citykey) {
+      var model = App.state.locationsCache[citykey];
+      var name = citykey.split('/');
+      var region = name[0]
+      var city = name[1];
+      var forecast = this.getForecast(region, city, model.get('lat'), model.get('lon'));
 
       $.when(forecast).done(function (data, status, xhr) {
         console.log("DATA", status, data);
@@ -56,10 +70,11 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
 
 
   /* = Router --------------------------------------------------------------- */
-  var Router = new Marionette.AppRouter({
-    controller: Controller,
+  this.Router = new Marionette.AppRouter({
+    controller: API,
     appRoutes: {
-      'forecast/:region/:city' : 'showForecast',
+      '/' : 'reset',
+      '' : 'reset'
     }
   })
 
@@ -85,7 +100,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
 
   var ForecastFull = Marionette.ItemView.extend({
     // tagName: 'article',
-    className: 'forecast forecast-slice',
+    className: 'forecast forecast-full',
 
     initialize: function (options) {
       this.data = options.data;
@@ -121,7 +136,18 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
 
       this.el.appendChild(docFrag);
     }
-  })
+  });
+
+
+
+
+  /* = Start ---------------------------------------------------------------- */
+  this.on('start', function (data) {
+    API.init(data);
+    this.router = new Backbone.Router()
+    //console.log("ROUTER", Router)
+
+  });
 
 
 });

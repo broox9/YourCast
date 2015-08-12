@@ -21,11 +21,13 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
       });
 
       var dateView = new DateView({model: new DateModel });
+      var titleView = new TitleView();
       var searchView = new SearchBoxView();
       var layout = new SearchBarLayout({collection: SearchList});
       layout.render();
       App.searchBarRegion.show(layout);
 
+      layout.searchBarTitle.show(titleView);
       layout.searchBarDate.show(dateView)
       layout.searchBarField.show(searchView);
     },
@@ -49,7 +51,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     regions: {
       searchBarDate: '#search-bar-date',
       searchBarField: '#search-bar-field',
-      searchBarButton: '#search-bar-button'
+      searchBarTitle: '#search-bar-title'
     }
   });
 
@@ -63,6 +65,16 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
       return _.template('<%= date %>')(model)
     }
   });
+
+
+  /* = Views: TitleView ----------------------------------------------------- */
+  var TitleView = Marionette.ItemView.extend({
+    className: 'title',
+    template: function (model) {
+      return JST['weatherapp/searchbar/templates/title_template']
+    }
+  });
+
 
 
   /* = Views: Search Result Item --------------------------------------------- */

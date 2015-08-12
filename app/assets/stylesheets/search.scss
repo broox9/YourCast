@@ -4,15 +4,21 @@
 
 
 #search-bar-region {
-  width:100%;
+  width: 100%;
+  margin: 0 auto;
   background-color: #eee;
 }
 
 .search-bar-container {
-  //max-width: 1200px;
+  max-width: 1200px;
   width: auto;
   padding: 0;
   margin: 0 auto;
+
+  & > div {
+    box-sizing: border-box;
+
+  }
 }
 
 
@@ -20,12 +26,26 @@
   display: inline-block;
   padding: 1em;
   margin: 0 1em;
+  font-size: 1em;
+  color: #999;
 }
 
-#search-bar-button {
-  display: none;
+#search-bar-title {
+  display: inline-block;
   padding: 1em;
   margin: 0 1em;
+
+  a {
+    font-weight: lighter;
+    vertical-align: middle;
+    text-decoration: none;
+    height: 100%;
+    display:block;
+    box-sizing: border-box;
+    font-size: 1.5em;
+    line-height: 1.5em;
+
+  }
 }
 
 

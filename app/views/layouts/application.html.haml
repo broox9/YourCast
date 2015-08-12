@@ -11,17 +11,12 @@
     = javascript_include_tag 'application' # 'data-turbolinks-track' => true
     = csrf_meta_tags
 
-    -# TODO move this inside the App
-    :erb
-      <script type="text/javascript" async>
-
-      </script>
-
-    :javascript
-      $(function () {
-        WeatherApp.start();
-      });
 
   %body
-    = render 'shared/header'
     = yield
+
+
+  :javascript
+    $(function () {
+      WeatherApp.start();
+    });

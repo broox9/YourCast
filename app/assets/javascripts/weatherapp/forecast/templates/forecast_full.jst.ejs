@@ -1,42 +1,57 @@
-<h3><%= current_observation.display_location.full  %></h3>
+<section class="right-now">
+  <h3><%= current_observation.display_location.full  %></h3>
+  <div class="currently">
 
-<div class="currently">
+    <div class="conditions">
+      <img class="weather-icon" alt="<%= current_observation.icon %>" src="<%= current_observation.icon_url %>" />
+      <span class="text">
+        <%= current_observation.weather %>&nbsp;&nbsp;
+        <%= forecast.simpleforecast.forecastday[0].high.fahrenheit %> | <%= forecast.simpleforecast.forecastday[0].low.fahrenheit %>
+      </span>
+    </div>
 
-  <div class="conditions">
-    <img class="weather-icon" alt="<%= current_observation.icon %>" src="<%= current_observation.icon_url %>" />
-    <span class="text"><%= current_observation.weather %></span>
-  </div>
+    <div class="main_info">
+      <span class="current_temp"><%= Math.round(current_observation.temp_f)  %>&deg;</span>
 
-  <div class="main_info">
-    <span class="current_temp"><%= Math.round(current_observation.temp_f)  %>&deg;</span>
+      <div class="side-data">
+        <div class="feels-like">
+          <span class="title">feels like</span>
+          <span class="data"><%= current_observation.feelslike_f %>&deg;</span>
+        </div>
 
-    <div class="side-data">
-      <div class="feels-like">
-        <span class="title">feels like</span>
-        <span class="data"><%= current_observation.feelslike_f %>&deg;</span>
-      </div>
+        <div class="rel-humidity">
+          <span class="title">humidity</span>
+          <span class="data"><%= current_observation.relative_humidity %> </span>
+        </div>
 
-      <div class="rel-humidity">
-        <span class="title">humidity</span>
-        <span class="data"><%= current_observation.relative_humidity %> </span>
       </div>
 
     </div>
 
+    <p class="description">
+      <%= forecast.txt_forecast.forecastday[0].fcttext %>
+    </p>
+
   </div>
+</section>
 
-  <p class="description">
-    <%= forecast.txt_forecast.forecastday[0].fcttext %>
-  </p>
 
-  <div class="future-forecast">
-    <% _.each(forecast.simpleforecast.forecastday, function (f, index) { %>
-      <ul>
-        <li><%= f.date.pretty %></li>
-        <li><%= f.conditions %></li>
-        <li><%= f.high.fahrenheit %></li>
-      </ul>
-    <% }); %>
-  </div>
+<section class="future-forecast">
+  <% _.each(forecast.simpleforecast.forecastday, function (f, index) { %>
+    <% if (index === 0) {return} %>
+    <div class="future-slice">
+      <div class="date"><%= f.date.monthname_short %> <%= f.date.day %> </div>
+      <div class="conditions">
+        <img src="<%= f.icon_url %>" />
+        <br>
+        <%= f.conditions %>
+      </div>
+      <div class="high"><%= f.high.fahrenheit %>&deg;</div>
+      <div class="low"><%= f.low.fahrenheit %>&deg;</div>
+    </div>
+  <% }); %>
+</section>
 
-</div>
+
+<section class="almanac">
+</section>
