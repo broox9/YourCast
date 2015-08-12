@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   get '/search/defaults', to: 'search#default_search'
+  get '/search/forecast/:region/:city/', to: 'search#forecast'
   root 'home#index'
 
   # Example of regular route:

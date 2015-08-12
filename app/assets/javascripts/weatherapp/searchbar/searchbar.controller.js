@@ -31,7 +31,6 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     },
 
     broadcastSelectedCity: function (model) {
-      console.log("selected Model", model)
       App.vent.trigger('city:selected', model)
     }
   };
@@ -84,7 +83,8 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     },
 
     handleItemSelect: function (e) {
-      Controller.broadcastSelectedCity(this.model)
+      Controller.broadcastSelectedCity(this.model);
+      SearchList.reset([])
     }
   });
 
@@ -103,6 +103,11 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
 
     initialize: function (opts) {
       this.xhr;
+      //TODO: wire the childView to pass this event back to
+      //this view instead of listening this way
+      App.vent.on("city:selected", function (model) {
+          document.querySelector('#city-search').value = '';
+      })
     },
 
     templateHelpers: function() {

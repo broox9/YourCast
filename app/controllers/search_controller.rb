@@ -1,23 +1,42 @@
 class SearchController < ApplicationController
 
-  def city_search region, city
-    url_city = city.gsub(/\s/, '_')
-    city_cache_key = url_city + '_' + region
+  def city_search region, city, lat = nil, lon = nil
+    city_cache_key = city + '_' + region
 
     Rails.cache.fetch(city_cache_key, :expires_in => 15.minutes) do
-      url = "http://api.wunderground.com/api/#{wu_key}/forecast/conditions/almanac/q/#{region}/#{url_city}.json"
+      if lat
+        url = "http://api.wunderground.com/api/#{wu_key}/forecast/conditions/almanac/q/#{lat},#{lon}.json"
+      else
+        url = "http://api.wunderground.com/api/#{wu_key}/forecast10day/conditions/almanac/q/#{region}/#{city}.json"
+      end
+
+      Rails.logger.info "~~~~~~~ requesting #{url}"
       res = RestClient.get(url)
     end
   end
 
+
+  def forecast
+    # TODO: strong params
+    Rails.logger.info "~~~~~~~~~~~~~~~~~~ PARAMS #{params}"
+    city_forecast = city_search format_name(params[:region]), format_name(params[:city]), params[:lat], params[:lon]
+    render :json => city_forecast
+  end
+
+
+
   def default_search
     default_forecast = []
     get_defaults.each do |default|
-      city = city_search default[:region], default[:city]
+      city = city_search format_name(default[:region]), format_name(default[:city])
       default_forecast << JSON.parse(city)
     end
 
     render :json => default_forecast
+  end
+
+  def format_name name
+    name.gsub(/\s/, '_');
   end
 
   private
