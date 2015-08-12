@@ -1,0 +1,59 @@
+.forecast  {
+  font-weight: lighter;
+  h3 {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.forecast-slice {
+  box-sizing: border-box;
+  border: 1px solid grey;
+  padding: 0.5em;
+  margin: 0 auto;
+  width: 32.37%;
+  display: inline-block;
+
+  .description {
+    display: table;
+    width: 100%;
+
+    img {
+      padding-right: 1ex;
+    }
+    .text, img {
+      vertical-align: middle;
+      text-align: left;
+    }
+  }
+
+  .main_info {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .current_temp {
+    display: table-cell;
+    float: left;
+    font-size: 5.25em;
+    padding: 0 0.25em;
+  }
+
+  .side-data {
+    display: block;
+    float: left;
+    text-align: center;
+
+    & > div {
+      padding: 0.5em;
+      line-height: 1em;
+    }
+
+    & .title {
+      display: block;
+      font-size: 0.75em;
+      line-height: 1.25em;
+    }
+  }
+}

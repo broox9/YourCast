@@ -103,8 +103,6 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
 
     initialize: function (opts) {
       this.xhr;
-      console.log("searchbox", this);
-
     },
 
     templateHelpers: function() {

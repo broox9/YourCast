@@ -8,4 +8,14 @@ WeatherApp.on('before:start', function () {
 });
 
 
+WeatherApp.on('start', function () {
+  _bootstrapDefaults().done(function (data, status, xhr) {
+    this.module('Forecast').start(data)
+  }.bind(this));
+});
+
+
+function _bootstrapDefaults () {
+  return $.getJSON('/search/defaults');
+}
 // console.log("WeatherApp init", WeatherApp)

@@ -3,9 +3,9 @@ class SearchController < ApplicationController
   def city_search region, city
     url_city = city.gsub(/\s/, '_')
     city_cache_key = url_city + '_' + region
-    
+
     Rails.cache.fetch(city_cache_key, :expires_in => 15.minutes) do
-      url = "http://api.wunderground.com/api/#{wu_key}/forecast/conditions/q/#{region}/#{url_city}.json"
+      url = "http://api.wunderground.com/api/#{wu_key}/forecast/conditions/almanac/q/#{region}/#{url_city}.json"
       res = RestClient.get(url)
     end
   end
