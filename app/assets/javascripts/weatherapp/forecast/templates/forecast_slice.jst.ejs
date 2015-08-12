@@ -1,10 +1,8 @@
-
-<article class="forecast forecast-slice">
 <h3><%= current_observation.display_location.full  %></h3>
 
 <div class="currently">
 
-  <div class="description centered">
+  <div class="conditions">
     <img class="weather-icon" alt="<%= current_observation.icon %>" src="<%= current_observation.icon_url %>" />
     <span class="text"><%= current_observation.weather %></span>
   </div>
@@ -27,6 +25,8 @@
 
   </div>
 
-</div>
+  <p class="description">
+    <%= forecast.txt_forecast.forecastday[0].fcttext %>
+  </p>
 
-</article>
+</div>

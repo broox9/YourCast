@@ -18,4 +18,3 @@ WeatherApp.on('start', function () {
 function _bootstrapDefaults () {
   return $.getJSON('/search/defaults');
 }
-// console.log("WeatherApp init", WeatherApp)
