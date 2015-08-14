@@ -2,7 +2,7 @@
   display: table;
   vertical-align: top;
   // box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   padding: 0.5em;
   // width: 90%;
   max-width: 1200px;
@@ -11,40 +11,46 @@
   // table-layout: fixed;
 
   > .right-now, > .future-forecast {
-    display: table-cell;
-
+    display: inline-block;
     vertical-align: top;
   }
 
   // = .future-forecast ----------------------------------------------------- */
   .future-forecast {
     text-align: left;
+    width: 50%;
 
     .future-slice {
-      width: 30.66666666666%; //144px / 450px - some
-      height: 100%;
-      margin-right:1.75%; //12px / 450px - some
-      padding: 2% 0;
+      width: 100%;
+      margin-bottom: 8px;
+      padding: 1em;
       box-sizing: border-box;
+      display: block;
+      border: 1px solid #ddd;
+    }
+
+    .date {
+      color: #999;
+    }
+
+    .high, .low {
+      float: right;
       display: inline-block;
-      text-align: center;
-
-      border: 1px solid #eee;
-    }
-
-    .high {
       font-size: 1.5em;
-      margin-bottom: 0.75em;
+      margin-left: 1em;
     }
 
-    low {
-      color: #757575;
+    .low {
+      color: #999;
     }
 
     .conditions {
+      display: inline;
+      vertical-align: middle;
       margin: 1em 0;
       img {
-        max-width: 100%;
+        vertical-align: inherit;
+        max-height: 50px;
       }
     }
   }
@@ -52,6 +58,8 @@
 
   // = .right-now ----------------------------------------------------------- */
   .right-now {
+    width: 50%;
+
     .conditions {
       margin: 0.5em 0 1em 0;;
       text-align: center;
@@ -74,7 +82,7 @@
 
     .current_temp {
       display: inline-block;
-      font-size: 5.25em;
+      font-size: 8em;
       padding: 0 0.25em;
     }
 

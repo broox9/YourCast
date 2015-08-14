@@ -19,7 +19,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
   var API = {
     init: function (data) {
       this.defaultData = data;
-
+      console.log("defaults", data)
       var mainview = new ForecastMainView({data: data})
       var view = new ForecastSlice();
       App.mainContentRegion.show(mainview);
@@ -73,7 +73,6 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
   this.Router = new Marionette.AppRouter({
     controller: API,
     appRoutes: {
-      '/' : 'reset',
       '' : 'reset'
     }
   })

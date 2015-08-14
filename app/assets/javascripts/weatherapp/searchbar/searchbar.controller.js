@@ -83,7 +83,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     className: 'city-search-item',
 
     initialize: function () {
-      console.log('childView')
+      // console.log('childView')
     },
 
     events: {
@@ -110,7 +110,8 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     collection: SearchList,
 
     events: {
-      'keyup #city-search' : 'handleInput'
+      'keyup #city-search' : 'handleInput',
+      'submit': 'handleSubmit'
     },
 
     initialize: function (opts) {
@@ -118,7 +119,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
       //TODO: wire the childView to pass this event back to
       //this view instead of listening this way
       App.vent.on("city:selected", function (model) {
-          document.querySelector('#city-search').value = '';
+        document.querySelector('#city-search').value = model.get('name');
       })
     },
 
@@ -130,9 +131,16 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
       return JST['weatherapp/searchbar/templates/searchbox_template'](data);
     },
 
+    handleSubmit: function (e) {
+      e.preventDefault();
+      Controller.broadcastSelectedCity(this.collection.at(0));
+    },
+
     handleResults: function (data, status, xhr) {
       var cities = (!data.RESULTS.length) ? [] : data.RESULTS.filter(function (city) {return city.type = "city";})
-      SearchList.reset(cities);
+      console.log("results", cities.length)
+      var list = (cities.length > 10)? cities.slice(0, 10) : cities
+      SearchList.reset(list);
     },
 
     handleInput: function (e) {
