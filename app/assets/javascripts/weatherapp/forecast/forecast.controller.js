@@ -26,7 +26,9 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     },
 
     reset: function () {
-      this.init(this.defaultData);
+      if (this.defaultData) {
+        this.init(this.defaultData);
+      }
     },
 
     processCityModel: function (model) {
@@ -75,7 +77,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     appRoutes: {
       '' : 'reset'
     }
-  })
+  });
 
 
 

@@ -9,6 +9,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
   });
 
 
+
   /* = Controller ----------------------------------------------------------- */
   var SearchList = new App.collections.Locations();
 
@@ -20,22 +21,37 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
         }
       });
 
-      var dateView = new DateView({model: new DateModel });
-      var titleView = new TitleView();
-      var searchView = new SearchBoxView();
-      var layout = new SearchBarLayout({collection: SearchList});
-      layout.render();
-      App.searchBarRegion.show(layout);
+      this.dateView = new DateView({model: new DateModel });
+      this.titleView = new TitleView();
+      this.searchView = new SearchBoxView();
+      this.layout = new SearchBarLayout({collection: SearchList});
+      this.layout.render();
+      App.searchBarRegion.show(this.layout);
 
-      layout.searchBarTitle.show(titleView);
-      layout.searchBarDate.show(dateView)
-      layout.searchBarField.show(searchView);
+      this.layout.searchBarTitle.show(this.titleView);
+      this.layout.searchBarDate.show(this.dateView)
+      this.layout.searchBarField.show(this.searchView);
     },
 
     broadcastSelectedCity: function (model) {
       App.vent.trigger('city:selected', model)
+    },
+
+    reset: function () {
+      SearchList.reset([]);
     }
   };
+
+  // this.Router = new Marionette.AppRouter({
+  //   //controller: Controller,
+  //   routes: {
+  //     '' : 'reset'
+  //   },
+  //
+  //   reset: function () {
+  //       SearchList.reset([]);
+  //   }
+  // });
 
 
 
@@ -96,7 +112,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
 
     handleItemSelect: function (e) {
       Controller.broadcastSelectedCity(this.model);
-      SearchList.reset([])
+      SearchList.reset([]);
     }
   });
 
@@ -110,7 +126,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     collection: SearchList,
 
     events: {
-      'keyup #city-search' : 'handleInput',
+      'keypress #city-search' : 'handleInput',
       'submit': 'handleSubmit'
     },
 
@@ -118,9 +134,15 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
       this.xhr;
       //TODO: wire the childView to pass this event back to
       //this view instead of listening this way
-      App.vent.on("city:selected", function (model) {
-        document.querySelector('#city-search').value = model.get('name');
-      })
+      // App.vent.on("city:selected", function (model) {
+      //   this.resetBoxText();
+      //   SearchList.reset([]);
+      // }.bind(this))
+    },
+
+    resetBoxText: function () {
+      this.$el.find('#city-search').val('').blur();
+      SearchList.reset([]);
     },
 
     templateHelpers: function() {
@@ -134,22 +156,25 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     handleSubmit: function (e) {
       e.preventDefault();
       Controller.broadcastSelectedCity(this.collection.at(0));
+      this.xhr.abort();
+      this.resetBoxText();
+      SearchList.reset([]);
     },
 
     handleResults: function (data, status, xhr) {
       var cities = (!data.RESULTS.length) ? [] : data.RESULTS.filter(function (city) {return city.type = "city";})
-      console.log("results", cities.length)
       var list = (cities.length > 10)? cities.slice(0, 10) : cities
       SearchList.reset(list);
     },
 
     handleInput: function (e) {
+      console.log("handle input")
       var str = e.target.value;
       if (this.xhr) { this.xhr.abort() }
 
       if (str.length < 1) {
         if (this.xhr) { this.xhr.abort() }
-        SearchList.reset([])
+        SearchList.reset([]);
         return;
       }
 
