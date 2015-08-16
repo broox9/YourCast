@@ -6,7 +6,7 @@
 #search-bar-region {
   width: 100%;
   margin: 0 auto;
-  background: linear-gradient(35deg, #F29F05, #F28705);
+  background: linear-gradient(35deg, #F29F05 65%, #F28705);
   border-bottom: 1px solid #eee;
 }
 
@@ -47,7 +47,7 @@
 
   a {
     font-weight: lighter;
-    vertical-align: middle;
+    vertical-align: bottom;
     text-decoration: none;
     height: 100%;
     display:block;
@@ -113,6 +113,11 @@
     cursor: pointer;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #aaa;
+
+    a {
+      color: #454545;;
+      text-decoration: none;
+    }
 
     &:hover {
       color: #2b72bb;

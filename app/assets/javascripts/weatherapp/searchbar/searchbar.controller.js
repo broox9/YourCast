@@ -107,7 +107,12 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     },
 
     template: function (model) {
-      return _.template('<span><%= name %></span>')(model);
+      var location = model.name.split(', ');
+      var region = location[0].replace(/\s/g, '_');
+      var city = location[1].replace(/\s/g, '_');
+
+      model.url = "#/forecast/" + region + "/" + city
+      return _.template('<a href="<%= url %>"><%= name %></span>')(model);
     },
 
     handleItemSelect: function (e) {
@@ -162,7 +167,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
     },
 
     handleResults: function (data, status, xhr) {
-      var cities = (!data.RESULTS.length) ? [] : data.RESULTS.filter(function (city) {return city.type = "city";})
+      var cities = (!data.RESULTS.length) ? [] : data.RESULTS.filter(function (city) {return city.type == "city" && city.tz != "MISSING";})
       var list = (cities.length > 10)? cities.slice(0, 10) : cities
       SearchList.reset(list);
     },

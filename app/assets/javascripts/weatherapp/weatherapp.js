@@ -14,12 +14,14 @@ WeatherApp.on('before:start', function () {
 
 
 WeatherApp.on('start', function () {
+  Backbone.history.start();
+  // var frag = Backbone.history.getFragment();
+  // this.vent.trigger('app:init:fragment', frag);
+
   _bootstrapDefaults().done(function (data, status, xhr) {
     this.module('Forecast').start(data)
   }.bind(this));
 
-
-  Backbone.history.start();
 });
 
 

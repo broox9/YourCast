@@ -6,16 +6,21 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     return formatted_name;
   }
 
-  App.vent.on('city:selected', function (model) {
-    var cityKey = API.processCityModel(model);
-    Forecast.router.navigate("forecast/" + cityKey);
-    API.showForecast(cityKey);
+  App.vent.on({
+    'city:selected': function (model) {
+      var cityKey = API.processCityModel(model);
+      //Forecast.Router.navigate("/forecast/" + cityKey);
+      API.showForecast(cityKey);
+    },
+
+    'app:init:fragment': function (fragment) {
+      console.log("init fragment", fragment, Forecast)
+      Forecast.Router.navigate("/forecast/" + cityKey);
+    }
   });
 
 
   /* = Controller ----------------------------------------------------------- */
-  //var defaultForecast= {};
-
   var API = {
     init: function (data) {
       this.defaultData = data;
@@ -29,6 +34,11 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
       if (this.defaultData) {
         this.init(this.defaultData);
       }
+    },
+
+    navTo: function (fragment) {
+      var cityKey = fragement.replace(/^\/?forecast/, '');
+      console.log("NAV CITY KEY", cityKey)
     },
 
     processCityModel: function (model) {
@@ -72,10 +82,11 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
 
 
   /* = Router --------------------------------------------------------------- */
-  this.Router = new Marionette.AppRouter({
+  var Router = Marionette.AppRouter.extend({
     controller: API,
     appRoutes: {
-      '' : 'reset'
+      '' : 'reset',
+      '/forceast/:region/:city' : 'navTo'
     }
   });
 
@@ -145,9 +156,8 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
   /* = Start ---------------------------------------------------------------- */
   this.on('start', function (data) {
     API.init(data);
-    this.router = new Backbone.Router()
-    //console.log("ROUTER", Router)
-
+    this.router = new Router()
+    console.log("ROUTER", this.router)
   });
 
 

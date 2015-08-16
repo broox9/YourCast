@@ -4,15 +4,15 @@
   // box-sizing: border-box;
   border: 1px solid #ddd;
   padding: 0.5em;
-  // width: 90%;
+  padding-bottom: 0;
+  width: 94.88888888%;
   max-width: 1200px;
-  min-width: 900px;
   margin: 12px auto;
   // table-layout: fixed;
 
   > .right-now, > .future-forecast {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
   }
 
   // = .future-forecast ----------------------------------------------------- */
