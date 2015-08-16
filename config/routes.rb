@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  # for OmniAuth
+  get '/auth/developer/callback', to: 'sessions#create'
+  # get '/auth/twitter/callback', to: 'sessions#create'
+
+
   # You can have the root of your site routed with "root"
   get '/search/defaults', to: 'search#default_search'
   get '/search/forecast/:region/:city/', to: 'search#forecast'

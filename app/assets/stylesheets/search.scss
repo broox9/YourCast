@@ -6,9 +6,8 @@
 #search-bar-region {
   width: 100%;
   margin: 0 auto;
-  // background-color: #eee;
+  background: linear-gradient(35deg, #F29F05, #F28705);
   border-bottom: 1px solid #eee;
-  background-color: #fff;
 }
 
 .search-bar-container {
@@ -35,7 +34,7 @@
   padding: 1em 0;
   margin: 0 1em;
   font-size: 1em;
-  color: #aaa;
+  color: #fd0;
   font-size: 0.75em;
   text-transform: uppercase;
 }
@@ -55,6 +54,8 @@
     box-sizing: border-box;
     font-size: 1.5em;
     line-height: 1.5em;
+    color: #fff;
+    font-weight: thicker;
 
   }
 }
@@ -66,7 +67,6 @@
   margin: 0 1em;
 
   & .city-search-wrap {
-    display: inline-block;
     position: relative;
   }
 
@@ -83,7 +83,6 @@
     width: 100%;
     color: #656565;
     border: 1px solid #eee;
-    background-color: lightyellow;
     border-radius: 0.25em;
     padding: 0.25em 1em;
     max-width: 30em;
@@ -112,11 +111,16 @@
     margin: 0;
     padding: 0.5em 1em;
     cursor: pointer;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #aaa;
 
     &:hover {
       color: #2b72bb;
       background-color: #eee;
-      // border-radius: 0.5em
+    }
+
+    &:last-child {
+      border-bottom: none;
     }
   }
 }

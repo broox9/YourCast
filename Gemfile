@@ -27,6 +27,8 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'puma'
+gem 'omniauth', '~> 1.2.2'
+gem 'omniauth-heroku', '~> 0.2.0'
 
 gem 'ejs', group: :assets
 
