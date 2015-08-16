@@ -36,8 +36,9 @@
     .high, .low {
       float: right;
       display: inline-block;
+      vertical-align: middle;
       font-size: 1.5em;
-      margin-left: 1em;
+      margin: 1em 0 1em 1em;
     }
 
     .low {
@@ -45,9 +46,15 @@
     }
 
     .conditions {
-      display: inline;
+      display: inline-block;
+      max-width: 55%;
       vertical-align: middle;
       margin: 1em 0;
+
+      img, .text {
+        display: inline-block;
+      }
+
       img {
         vertical-align: inherit;
         max-height: 50px;

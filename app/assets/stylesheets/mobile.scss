@@ -1,11 +1,13 @@
 @media (max-width: 768px) {
 
 }
-
-@media (max-width: 645px) {
+@media (max-width: 650px) {
   #search-bar-region #search-bar-date {
     display: none;
   }
+}
+
+@media (max-width: 600px) {
 
   .forecast-full {
     margin: 1.3% auto;
@@ -23,12 +25,6 @@
       height: 50px;
     }
   }
-}
-
-
-
-
-@media (max-width: 550px) {
 
   #search-bar-region {
 

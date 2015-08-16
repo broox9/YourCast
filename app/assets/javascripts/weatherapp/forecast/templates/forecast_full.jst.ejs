@@ -43,10 +43,12 @@
       <div class="date"><%= f.date.weekday %> <%= f.date.monthname_short %> <%= f.date.day %> </div>
       <div class="conditions">
         <img src="<%= f.icon_url %>" />
-        <%= f.conditions %>
+        <span class="text"><%= f.conditions %></span>
       </div>
+
       <div class="low"><%= f.low.fahrenheit %>&deg;</div>
       <div class="high"><%= f.high.fahrenheit %>&deg;</div>
+
 
     </div>
   <% }); %>
