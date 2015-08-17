@@ -1,5 +1,5 @@
 WeatherApp.module('Entities', function (Entities, App, Backbone, Marionette, $, _) {
-this.startWithParent = false;
+  this.startWithParent = false;
 
   App.models = {};
   App.collections = {};

@@ -1,24 +1,31 @@
+window.WeatherApp = (function (_, Backbone, $){
+  'use-strict';
+
   function _bootstrapDefaults () {
     return $.getJSON('/search/defaults');
   }
 
-  var WeatherApp = new Marionette.Application();
+  var App = new Marionette.Application();
 
-  WeatherApp.on('before:start', function () {
+  App.on('before:start', function () {
+    this.module('Entities').start();
+
     this.state = {
       locationsCache: {}
     };
 
-    this.module('Entities').start();
-
-    this.addRegions({
-      searchBarRegion: '#search-bar-region',
-      mainContentRegion: '#main-content-region'
+    // set the main layout with regions
+    this.MainLayout = new Marionette.LayoutView({
+      el: "#weatherApp",
+      regions: {
+        searchBarRegion: '#search-bar-region',
+        mainContentRegion: '#main-content-region'
+      }
     });
   });
 
 
-  WeatherApp.on('start', function () {
+  App.on('start', function () {
     Backbone.history.start();
     // var frag = Backbone.history.getFragment();
     // this.vent.trigger('app:init:fragment', frag);
@@ -27,3 +34,7 @@
       this.module('Forecast').start(data)
     }.bind(this));
   });
+
+  return App;
+
+})(_ , Backbone, jQuery);

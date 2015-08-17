@@ -26,7 +26,7 @@ WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $
       this.searchView = new SearchBoxView();
       this.layout = new SearchBarLayout({collection: SearchList});
       this.layout.render();
-      App.searchBarRegion.show(this.layout);
+      App.MainLayout.searchBarRegion.show(this.layout);
 
       this.layout.searchBarTitle.show(this.titleView);
       this.layout.searchBarDate.show(this.dateView)

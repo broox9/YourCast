@@ -27,7 +27,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
       console.log("defaults", data)
       var mainview = new ForecastMainView({data: data})
       var view = new ForecastSlice();
-      App.mainContentRegion.show(mainview);
+      App.MainLayout.mainContentRegion.show(mainview);
     },
 
     reset: function () {
