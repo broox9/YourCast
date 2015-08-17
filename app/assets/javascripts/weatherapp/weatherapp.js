@@ -22,6 +22,21 @@ window.WeatherApp = (function (_, Backbone, $){
         mainContentRegion: '#main-content-region'
       }
     });
+
+
+    // this.MainLayout.mainContentRegion.on('before:swap', function () {
+    //   setTimeout(function () {this.$el.removeClass('active') }.bind(this), 1000)
+    // })
+    //
+    // this.MainLayout.mainContentRegion.on('swap', function () {
+    //   console.log("show")
+    //   setTimeout(function () {this.$el.addClass('active') }.bind(this), 1000)
+    // })
+
+    this.module('Searchbar').start();
+    this.module('Forecast').start();
+
+
   });
 
 
@@ -31,7 +46,7 @@ window.WeatherApp = (function (_, Backbone, $){
     // this.vent.trigger('app:init:fragment', frag);
 
     _bootstrapDefaults().done(function (data, status, xhr) {
-      this.module('Forecast').start(data)
+      this.vent.trigger('app:init:defaults', data)
     }.bind(this));
   });
 

@@ -16,23 +16,33 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     'app:init:fragment': function (fragment) {
       console.log("init fragment", fragment, Forecast)
       Forecast.Router.navigate("/forecast/" + cityKey);
+    },
+
+    'app:init:defaults': function (defaults) {
+      API.setDefaults(defaults);
     }
   });
 
 
   /* = Controller ----------------------------------------------------------- */
   var API = {
-    init: function (data) {
-      this.defaultData = data;
-      console.log("defaults", data)
-      var mainview = new ForecastMainView({data: data})
+    blockDefaults: false,
+    init: function () {
+      var loading = new LoadingView();
+      App.MainLayout.mainContentRegion.show(loading);
+    },
+
+    setDefaults: function (defaults) {
+      this.defaultData = defaults;
+      console.log("defaults", defaults)
+      var mainview = new ForecastMainView({data: defaults})
       var view = new ForecastSlice();
       App.MainLayout.mainContentRegion.show(mainview);
     },
 
     reset: function () {
       if (this.defaultData) {
-        this.init(this.defaultData);
+        this.setDefaults(this.defaultData);
       }
     },
 
@@ -63,7 +73,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
       $.when(forecast).done(function (data, status, xhr) {
         console.log("DATA", status, data);
         var view = this.getFullView(data);
-        App.mainContentRegion.show(view);
+        App.MainLayout.mainContentRegion.show(view);
       }.bind(this));
     },
 
@@ -129,7 +139,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
 
 
 
-  ForecastMainView = Marionette.LayoutView.extend({
+  var ForecastMainView = Marionette.LayoutView.extend({
     className: 'forecast-slices-wrapper',
     initialize: function (options) {
       this.data = options.data
@@ -147,17 +157,25 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
       });
 
       this.el.appendChild(docFrag);
-    }
+    },
   });
+
+
+  var LoadingView = Marionette.ItemView.extend({
+    className: 'weather-loading',
+
+    template: function () {
+      return _.template('<strong></strong><h4>Loading</h4>');
+    }
+  })
 
 
 
 
   /* = Start ---------------------------------------------------------------- */
-  this.on('start', function (data) {
-    API.init(data);
-    this.router = new Router()
-    console.log("ROUTER", this.router)
+  this.on('start', function () {
+    this.router = new Router();
+    API.init();
   });
 
 

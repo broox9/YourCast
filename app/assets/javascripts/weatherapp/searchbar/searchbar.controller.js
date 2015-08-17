@@ -1,7 +1,7 @@
 WeatherApp.module('Searchbar', function (Searchbar, App, Backbone, Marionette, $, _) {
   'use-strict';
 
-  this.startWithParent = true;
+  this.startWithParent = false;
 
   /* = Initialize ----------------------------------------------------------- */
   this.on('start', function () {

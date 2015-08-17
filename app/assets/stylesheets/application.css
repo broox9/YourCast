@@ -31,5 +31,10 @@ html, body {
 
 
 #main-content-region {
-
+  /*opacity: 0;
+  transition: opacity 1s ease;*/
 }
+
+/*#main-content-region.active {
+  opacity: 1;
+}*/
