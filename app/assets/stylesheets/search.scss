@@ -55,7 +55,7 @@
     font-size: 1.5em;
     line-height: 1.5em;
     color: #fff;
-    font-weight: thicker;
+    font-weight: 300;
 
   }
 }
@@ -77,18 +77,41 @@
     margin: 0 1em 0 0;
   }
 
-  & input {
+  input {
     box-sizing: border-box;
     display: inline-block;
     width: 100%;
-    color: #656565;
-    border: 1px solid #eee;
+    color: #fff;
+    background-color: darken(#F28705, 10%);
+    border:none;
     border-radius: 0.25em;
-    padding: 0.25em 1em;
+    padding: 0.5em 1em;
     max-width: 30em;
     min-width:20em;
     // border: none;
     outline: none;
+    vertical-align: baseline;
+  }
+
+  input::before {
+    content: '\1F50D';
+    font-size: 1em;
+  }
+
+  ::-webkit-input-placeholder {
+     color: #fd0;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+     color: #fd0;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19+ */
+     color: #fd0;
+  }
+
+  :-ms-input-placeholder {
+     color: #fd0;
   }
 }
 
