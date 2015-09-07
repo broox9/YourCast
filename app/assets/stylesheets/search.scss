@@ -6,8 +6,8 @@
 #search-bar-region {
   width: 100%;
   margin: 0 auto;
-  background: linear-gradient(35deg, #F29F05 65%, #F28705);
-  border-bottom: 1px solid #eee;
+  background: transparent;// linear-gradient(0deg, #F29F05 65%, #F28705);
+  // border-bottom: 1px solid rgba(255,255,255, 0.15);
 }
 
 .search-bar-container {
@@ -99,7 +99,8 @@
   }
 
   ::-webkit-input-placeholder {
-     color: #fd0;
+     color: #F28705; //#fd0;
+
   }
 
   :-moz-placeholder { /* Firefox 18- */

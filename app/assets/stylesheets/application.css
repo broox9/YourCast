@@ -26,6 +26,7 @@ html, body {
   /*background-color: #87ceeb;*/
   /*background-color: #fff;*/
   /*background-image: radial-gradient(ellipse farthest-side at top center, rgba(255, 230,0, .25) 10%, transparent 70%);*/
+  background: linear-gradient(180deg, #F29F05 65%, #F28705);
   background-repeat: no-repeat;
 }
 

@@ -34,7 +34,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
 
     setDefaults: function (defaults) {
       this.defaultData = defaults;
-      console.log("defaults", defaults)
+      //console.log("defaults", defaults)
       var mainview = new ForecastMainView({data: defaults})
       var view = new ForecastSlice();
       App.MainLayout.mainContentRegion.show(mainview);
@@ -48,7 +48,8 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
 
     navTo: function (fragment) {
       var cityKey = fragement.replace(/^\/?forecast/, '');
-      console.log("NAV CITY KEY", cityKey)
+      console.log("NAV CITY KEY", cityKey);
+      this.showForecast(cityKey);
     },
 
     processCityModel: function (model) {
@@ -64,6 +65,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     },
 
     showForecast: function (citykey) {
+      console.log("show forecast", citykey)
       var model = App.state.locationsCache[citykey];
       var name = citykey.split('/');
       var region = name[0]
@@ -96,7 +98,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     controller: API,
     appRoutes: {
       '' : 'reset',
-      '/forceast/:region/:city' : 'navTo'
+      'foreceast/:region/:city' : 'navTo'
     }
   });
 
@@ -105,10 +107,23 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
   /* = Views ---------------------------------------------------------------- */
   var ForecastSlice = Marionette.ItemView.extend({
     // tagName: 'article',
-    className: 'forecast forecast-slice',
+    className: 'forecast forecast-slice bordered',
 
     initialize: function (options) {
       this.data = options.data;
+    },
+
+    templateHelpers: function () {
+      return {
+        locationURL: function () {
+          var city = this.current_observation.display_location.city;
+          var region = this.current_observation.display_location.state_name;
+          // if (region.toLowerCase() === 'us') {
+          //   region = this.current_observation.display_location.state;
+          // }
+          return '#/forecast/' + name_formatter(city) + "/" + name_formatter(region)
+        }
+      }
     },
 
     serializeData: function () {
@@ -122,7 +137,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
 
   var ForecastFull = Marionette.ItemView.extend({
     // tagName: 'article',
-    className: 'forecast forecast-full',
+    className: 'forecast forecast-full bordered',
 
     initialize: function (options) {
       this.data = options.data;

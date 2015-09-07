@@ -7,6 +7,12 @@
     padding: 0;
     font-weight: normal;
     text-align: center;
+
+    a{
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
   }
 }
 
@@ -24,7 +30,6 @@
   display: table-cell;
   vertical-align: top;
   box-sizing: border-box;
-  border: 1px solid #ccc;
   padding: 0.5em;
   width: 31.333333333%; /* 282 / 900 (border 2px)*/
   margin: 1.111111111%; /* 48 /900 */
