@@ -82,7 +82,7 @@
     display: inline-block;
     width: 100%;
     color: #fff;
-    background-color: darken(#F28705, 10%);
+    background-color: #F28705;
     border:none;
     border-radius: 0.25em;
     padding: 0.5em 1em;
@@ -99,20 +99,20 @@
   }
 
   ::-webkit-input-placeholder {
-     color: #F28705; //#fd0;
+     color: #FFB74D;
 
   }
 
   :-moz-placeholder { /* Firefox 18- */
-     color: #fd0;
+     color: #FFB74D;
   }
 
   ::-moz-placeholder {  /* Firefox 19+ */
-     color: #fd0;
+     color: #FFB74D;
   }
 
   :-ms-input-placeholder {
-     color: #fd0;
+     color: #FFB74D;
   }
 }
 

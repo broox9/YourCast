@@ -23,13 +23,20 @@ html, body {
   font-family: sans-serif;
   width: 100%;
   height: 100%;
+  padding-bottom: 1em;
+}
+
+#weatherApp {
   /*background-color: #87ceeb;*/
   /*background-color: #fff;*/
   /*background-image: radial-gradient(ellipse farthest-side at top center, rgba(255, 230,0, .25) 10%, transparent 70%);*/
-  background: linear-gradient(180deg, #F28705 12%, #F29F05 65%, #F28705 90%);
-  background-repeat: repeat-y;
+  background: linear-gradient(180deg, #FFB74D , #FF9800);
+  /*background-color: #64B5F6;
+  background: radial-gradient(circle, #64B5F6 30%,#2196F3);*/
+  background-position: center center;
+  /*background-repeat: repeat-y;*/
+  background-attachment: fixed;
 }
-
 
 #main-content-region {
   /*opacity: 0;
