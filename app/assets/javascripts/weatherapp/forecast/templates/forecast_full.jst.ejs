@@ -39,7 +39,7 @@
 <section class="future-forecast">
   <% _.each(forecast.simpleforecast.forecastday, function (f, index) { %>
     <% if (index === 0) {return} %>
-    <div class="future-slice">
+    <div class="future-slice bordered">
       <div class="date"><%= f.date.weekday %> <%= f.date.monthname_short %> <%= f.date.day %> </div>
       <div class="conditions">
         <img src="<%= f.icon_url %>" />

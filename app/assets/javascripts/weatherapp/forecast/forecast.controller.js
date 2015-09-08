@@ -14,8 +14,8 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     },
 
     'app:init:fragment': function (fragment) {
-      console.log("init fragment", fragment, Forecast)
-      Forecast.Router.navigate("/forecast/" + cityKey);
+      console.log("init fragment", fragment, Backbone.History.started)
+      Forecast.router.navigate(fragment, {trigger: true});
     },
 
     'app:init:defaults': function (defaults) {
@@ -46,10 +46,10 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
       }
     },
 
-    navTo: function (fragment) {
-      var cityKey = fragement.replace(/^\/?forecast/, '');
-      console.log("NAV CITY KEY", cityKey);
-      this.showForecast(cityKey);
+    navTo: function (city, region) {
+      // var cityKey = fragment.replace(/^\/?forecast/, '');
+      console.log("NAV TO", city, region);
+      this.showForecast([city, region].join('/'));
     },
 
     processCityModel: function (model) {
@@ -65,7 +65,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     },
 
     showForecast: function (citykey) {
-      console.log("show forecast", citykey)
+      console.log('show forecast citykey', citykey)
       var model = App.state.locationsCache[citykey];
       var name = citykey.split('/');
       var region = name[0]
@@ -98,8 +98,8 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     controller: API,
     appRoutes: {
       '' : 'reset',
-      'foreceast/:region/:city' : 'navTo'
-    }
+      'forecast/:region/:city' : 'navTo'
+    },
   });
 
 
@@ -118,10 +118,8 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
         locationURL: function () {
           var city = this.current_observation.display_location.city;
           var region = this.current_observation.display_location.state_name;
-          // if (region.toLowerCase() === 'us') {
-          //   region = this.current_observation.display_location.state;
-          // }
-          return '#/forecast/' + name_formatter(city) + "/" + name_formatter(region)
+
+          return '#forecast/' + name_formatter(city) + "/" + name_formatter(region)
         }
       }
     },

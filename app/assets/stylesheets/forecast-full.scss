@@ -7,6 +7,8 @@
   width: 94.88888888%;
   max-width: 1200px;
   margin: 12px auto;
+  box-shadow: 0px 0px 20px rgba(150,90,50,0.35);
+  border: none !important;
   // table-layout: fixed;
 
   > .right-now, > .future-forecast {
@@ -25,11 +27,10 @@
       padding: 1em;
       box-sizing: border-box;
       display: block;
-      border: 1px solid #ddd;
     }
 
     .date {
-      color: #999;
+      color: rgba(240,240,200, 0.85)
     }
 
     .high, .low {
@@ -41,7 +42,7 @@
     }
 
     .low {
-      color: #999;
+      color: rgba(240,240,200, 0.85)
     }
 
     .conditions {
