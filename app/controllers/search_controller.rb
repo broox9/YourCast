@@ -9,7 +9,7 @@ class SearchController < ApplicationController
       else
         url = "http://api.wunderground.com/api/#{wu_key}/forecast10day/conditions/almanac/q/#{region}/#{city}.json"
       end
-
+      Rails.logger.info "~~~~~~~~~~~~~~~~~ CITY REQ #{url}"
       res = RestClient.get(url)
     end
   end

@@ -13,7 +13,6 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     },
 
     'app:init:fragment': function (fragment) {
-      console.log("init fragment", fragment, Backbone.History.started)
       Forecast.router.navigate(fragment, {trigger: true});
     },
 
@@ -32,16 +31,14 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     },
 
     setDefaults: function (defaults) {
-      this.defaultData = defaults;
-      //console.log("defaults", defaults)
       var mainview = new ForecastMainView({data: defaults})
       var view = new ForecastSlice();
       App.MainLayout.mainContentRegion.show(mainview);
     },
 
     reset: function () {
-      if (this.defaultData) {
-        this.setDefaults(this.defaultData);
+      if (App.defaultData) {
+        this.setDefaults(App.defaultData);
       }
     },
 
@@ -118,10 +115,11 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
     },
 
     templateHelpers: function () {
+      var data = this.data.current_observation.display_location;
       return {
         locationURL: function () {
-          var city = this.current_observation.display_location.city;
-          var region = this.current_observation.display_location.state_name;
+          var city = data.city;
+          var region = (!!data.state)? data.state : data.country;
 
           return '#forecast/' + name_formatter(city) + "/" + name_formatter(region)
         }
@@ -159,7 +157,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
   var ForecastMainView = Marionette.LayoutView.extend({
     className: 'forecast-slices-wrapper',
     initialize: function (options) {
-      this.data = options.data
+      this.data = options.data;
     },
 
     template: function () {

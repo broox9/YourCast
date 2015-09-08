@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   # before_filter :get_defaults
 
   def get_defaults
-    [{city: "Newark", region: "NJ"}, {city: "Los Angeles", region: "California"}, {city: "London", region: "UK"}]
+    [{city: "Newark", region: "NJ"}, {city: "Los Angeles", region: "CA"}, {city: "London", region: "UK"}]
   end
 
 end

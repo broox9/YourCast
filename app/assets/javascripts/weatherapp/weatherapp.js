@@ -8,7 +8,6 @@ window.WeatherApp = (function (_, Backbone, $){
   var App = new Marionette.Application();
 
   App.on('before:start', function () {
-    Backbone.history.start();
     this.module('Entities').start();
 
     this.state = {
@@ -30,16 +29,18 @@ window.WeatherApp = (function (_, Backbone, $){
 
 
   App.on('start', function () {
+    Backbone.history.start();
     var frag = Backbone.history.getFragment();
 
-    // if (frag) {
-    //   console.log("FRAG", frag);
-    //   this.vent.trigger('app:init:fragment', frag);
-    // } else {
-      _bootstrapDefaults().done(function (data, status, xhr) {
+    _bootstrapDefaults().done(function (data, status, xhr) {
+      App.defaultData = data;
+      if (frag) {
+        this.vent.trigger('app:init:fragment', frag);
+      } else {
         this.vent.trigger('app:init:defaults', data)
-      }.bind(this));
-    // }
+      }
+    }.bind(this));
+
   });
 
   return App;

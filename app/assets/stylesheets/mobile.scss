@@ -1,5 +1,7 @@
 @media (max-width: 768px) {
-
+  .forecast-full > .right-now, .forecast-full > .future-forecast {
+    width: 49.5%;
+  }
 }
 @media (max-width: 650px) {
   #search-bar-region #search-bar-date {
@@ -68,6 +70,7 @@
     display: block;
     margin: 10px;
     width: auto;
+    background: linear-gradient(0deg, transparent, rgba(100,100,100, 0.3));
 
     .description {
       font-size: 1em;
