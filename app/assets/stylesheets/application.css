@@ -19,7 +19,7 @@
  *= require_self
  */
 html, body {
-  color: #454545;
+  color: #343434;
   font-family: sans-serif;
   width: 100%;
   height: 100%;
@@ -28,7 +28,7 @@ html, body {
   /*background-color: #87ceeb;*/
   /*background-color: #fff;*/
   /*background-image: radial-gradient(ellipse farthest-side at top center, rgba(255, 230,0, .25) 10%, transparent 70%);*/
-  background: linear-gradient(180deg, #FFB74D , #FF9800);
+  background: linear-gradient(180deg, #90CAF9 , #2196F3);
   /*background-color: #64B5F6;
   background: radial-gradient(circle, #64B5F6 30%,#2196F3);*/
   background-position: center center;
