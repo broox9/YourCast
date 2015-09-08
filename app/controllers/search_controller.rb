@@ -10,7 +10,6 @@ class SearchController < ApplicationController
         url = "http://api.wunderground.com/api/#{wu_key}/forecast10day/conditions/almanac/q/#{region}/#{city}.json"
       end
 
-      Rails.logger.info "~~~~~~~ requesting #{url}"
       res = RestClient.get(url)
     end
   end
@@ -18,7 +17,6 @@ class SearchController < ApplicationController
 
   def forecast
     # TODO: strong params
-    Rails.logger.info "~~~~~~~~~~~~~~~~~~ PARAMS #{params}"
     city_forecast = city_search format_name(params[:region]), format_name(params[:city]), params[:lat], params[:lon]
     render :json => city_forecast
   end

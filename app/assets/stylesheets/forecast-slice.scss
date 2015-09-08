@@ -12,6 +12,10 @@
       text-decoration: none;
       color: inherit;
       cursor: pointer;
+
+      &:hover, &:active {
+        color: cornsilk;
+      }
     }
   }
 }
@@ -30,7 +34,7 @@
   display: table-cell;
   vertical-align: top;
   box-sizing: border-box;
-  padding: 0.5em;
+  padding: 1em 0.5em;
   width: 31.333333333%; /* 282 / 900 (border 2px)*/
   margin: 1.111111111%; /* 48 /900 */
   margin-left: 0;

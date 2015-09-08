@@ -9,8 +9,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
   App.vent.on({
     'city:selected': function (model) {
       var cityKey = API.processCityModel(model);
-      //Forecast.Router.navigate("/forecast/" + cityKey);
-      API.showForecast(cityKey);
+      API.showSelectedForecast(cityKey);
     },
 
     'app:init:fragment': function (fragment) {
@@ -48,8 +47,14 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
 
     navTo: function (city, region) {
       // var cityKey = fragment.replace(/^\/?forecast/, '');
-      console.log("NAV TO", city, region);
-      this.showForecast([city, region].join('/'));
+      var url = '/search/forecast/' + region + '/' + city;
+      //TODO: Throttle this back
+      var forecast = this.getForecast(region, city, null, null)
+
+      $.when(forecast).done(function (data, status, xhr) {
+        var view = this.getFullView(data);
+        App.MainLayout.mainContentRegion.show(view);
+      }.bind(this));
     },
 
     processCityModel: function (model) {
@@ -64,8 +69,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
       return urlFragment;
     },
 
-    showForecast: function (citykey) {
-      console.log('show forecast citykey', citykey)
+    showSelectedForecast: function (citykey) {
       var model = App.state.locationsCache[citykey];
       var name = citykey.split('/');
       var region = name[0]
@@ -73,7 +77,7 @@ WeatherApp.module('Forecast', function (Forecast, App, Backbone, Marionette, $, 
       var forecast = this.getForecast(region, city, model.get('lat'), model.get('lon'));
 
       $.when(forecast).done(function (data, status, xhr) {
-        console.log("DATA", status, data);
+        console.log("Show Forecast DATA", status, data);
         var view = this.getFullView(data);
         App.MainLayout.mainContentRegion.show(view);
       }.bind(this));

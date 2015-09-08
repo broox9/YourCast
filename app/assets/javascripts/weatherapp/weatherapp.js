@@ -24,26 +24,12 @@ window.WeatherApp = (function (_, Backbone, $){
       }
     });
 
-
-    // this.MainLayout.mainContentRegion.on('before:swap', function () {
-    //   setTimeout(function () {this.$el.removeClass('active') }.bind(this), 1000)
-    // })
-    //
-    // this.MainLayout.mainContentRegion.on('swap', function () {
-    //   console.log("show")
-    //   setTimeout(function () {this.$el.addClass('active') }.bind(this), 1000)
-    // })
-
     this.module('Searchbar').start();
     this.module('Forecast').start();
-
-
   });
 
 
   App.on('start', function () {
-    // this.module('Searchbar').start();
-    // this.module('Forecast').start();
     var frag = Backbone.history.getFragment();
 
     // if (frag) {

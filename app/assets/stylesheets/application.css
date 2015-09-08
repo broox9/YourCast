@@ -24,9 +24,7 @@ html, body {
   width: 100%;
   height: 100%;
   padding-bottom: 1em;
-}
 
-#weatherApp {
   /*background-color: #87ceeb;*/
   /*background-color: #fff;*/
   /*background-image: radial-gradient(ellipse farthest-side at top center, rgba(255, 230,0, .25) 10%, transparent 70%);*/
@@ -36,6 +34,10 @@ html, body {
   background-position: center center;
   /*background-repeat: repeat-y;*/
   background-attachment: fixed;
+}
+
+#weatherApp {
+
 }
 
 #main-content-region {
